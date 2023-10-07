@@ -33,6 +33,7 @@ class LoginPage extends StatelessWidget{
 }*/
 
 import 'package:flutter/material.dart';
+import 'sistema_principal.dart'; // Importa la página nueva
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key});
@@ -42,16 +43,16 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF025951),
       body: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Centrar contenido horizontalmente
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Columna izquierda
           Container(
             width: MediaQuery.of(context).size.width * 0.5,
             color: Color(0xFF025951),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center, // Centrar contenido verticalmente
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 80), // Espacio superior
+                SizedBox(height: 80),
                 Text(
                   "Sistema para la prevención de problemas cardíacos",
                   textAlign: TextAlign.center,
@@ -60,7 +61,7 @@ class LoginPage extends StatelessWidget {
                     fontSize: 24,
                   ),
                 ),
-                SizedBox(height: 20), // Espacio entre el texto y el campo de texto
+                SizedBox(height: 100),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
@@ -72,7 +73,7 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
-                SizedBox(height: 10), // Espacio entre campos de texto
+                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
@@ -84,16 +85,28 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
-                SizedBox(height: 20), // Espacio entre el campo de texto y el botón
+                SizedBox(height: 120),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Acción a realizar al presionar el botón
+                      // Navegar a la nueva página al hacer clic en el botón
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SistemaPrincipalPage()),
+                      );
                     },
-                    child: Text('Ingresar'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Ingresar',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.green[200], // Color verde claro
+                      primary: Colors.green[200],
                       textStyle: TextStyle(
                         color: Colors.black,
                       ),
@@ -110,11 +123,11 @@ class LoginPage extends StatelessWidget {
               color: Color(0xFFB1F5C0),
               child: Center(
                 child: Container(
-                  width: 450, // Ancho del cuadrado
-                  height: 450, // Alto del cuadrado
+                  width: 450,
+                  height: 450,
                   decoration: BoxDecoration(
-                    color: Colors.white, // Color blanco
-                    borderRadius: BorderRadius.circular(50.0), // Bordes redondeados
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
                   child: Center(
                     child: Image.asset('assets/pablo.jpg'),
