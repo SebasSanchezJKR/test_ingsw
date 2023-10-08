@@ -16,6 +16,7 @@ class SistemaPrincipalPage extends StatelessWidget {
 
 import 'package:flutter/material.dart';
 import 'login_page.dart'; // Importa la página de inicio de sesión para volver atrás
+import 'ingresar_datos.dart'; // Importa la página de inicio de sesión para volver atrás
 
 class SistemaPrincipalPage extends StatelessWidget {
   @override
@@ -25,8 +26,17 @@ class SistemaPrincipalPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sistema para la prevención de problemas cardíacos'),
         backgroundColor: Color(0xFF025951),
+        title: Center(
+          child: Text(
+            'Sistema para la prevención de problemas cardíacos',
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -46,7 +56,11 @@ class SistemaPrincipalPage extends StatelessWidget {
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  print('Botón "Registrar Paciente" presionado');
+                  // Navegar a la página "IngresarDatosPage" cuando se presiona el botón "Registrar Paciente"
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => IngresarDatosPage()),
+                  );
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: verticalPadding),
