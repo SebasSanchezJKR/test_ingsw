@@ -108,30 +108,6 @@ class SistemaPrincipalPage extends StatelessWidget {
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  print('Botón "Resultado" presionado');
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: verticalPadding),
-                  child: Text(
-                    'Resultado',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF025951),
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 25),
-            SizedBox(
-              width: buttonWidth,
-              child: ElevatedButton(
-                onPressed: () {
                   print('Botón "Historia Paciente" presionado');
                 },
                 child: Padding(
