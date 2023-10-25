@@ -18,6 +18,12 @@ class _PrediccionPageState extends State<PrediccionPage> {
 
   String? selectedWork;
   List<String> opcionesWork = ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked'];
+
+  String? selectedResidence;
+  List<String> opcionesResidence =['Urban','Rural'];
+
+  String? selectedSmoking;
+  List<String> opcionesSmoking  = ['never smoked', 'smokes', 'formely smoked', 'Unknown'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,7 +188,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                       child: DropdownButton<String?>(
                         value: selectedMarried,
                         hint: const Text(
-                          "¿Estás Casado?",
+                          "¿Está Casado?",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
 
@@ -222,14 +228,14 @@ class _PrediccionPageState extends State<PrediccionPage> {
                       child: DropdownButton<String?>(
                         value: selectedWork,
                         hint: const Text(
-                          "¿Qué tipo de trabajo tiene?",
+                          "Tipo de trabajo",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
 
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             setState(() {
-                              selectedGender = newValue;
+                              selectedWork = newValue;
                             });
                           }
                         },
@@ -255,16 +261,81 @@ class _PrediccionPageState extends State<PrediccionPage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '¿Qué tipo de residencia tiene?',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
+                  Container(
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 500,
+                      child: DropdownButton<String?>(
+                        value: selectedResidence,
+                        hint: const Text(
+                          "Tipo de residencia",
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              selectedResidence = newValue;
+                            });
+                          }
+                        },
+                        items: ['Urban', 'Rural']
+                            .map<DropdownMenuItem<String?>>((value) {
+                          return DropdownMenuItem<String?>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                            color:
+                                Colors.black), // Establece el color del texto
+                        underline: Container(
+                          height: 1, // Altura del subrayado
+                          color: Colors.grey, // Color del subrayado
+                        ),
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
-                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 500,
+                      child: DropdownButton<String?>(
+                        value: selectedSmoking,
+                        hint: const Text(
+                          "Categoría de fumador",
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              selectedSmoking = newValue;
+                            });
+                          }
+                        },
+                        items: ['never smoked', 'smokes', 'formely smoked', 'Unknown']
+                            .map<DropdownMenuItem<String?>>((value) {
+                          return DropdownMenuItem<String?>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                            color:
+                                Colors.black), // Establece el color del texto
+                        underline: Container(
+                          height: 1, // Altura del subrayado
+                          color: Colors.grey, // Color del subrayado
+                        ),
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -274,22 +345,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                     width: 500,
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        labelText: '¿A qué categoría de fumador pertenece?',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
-                      ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '¿Tiene hipertensión?',
+                        labelText: 'Nivel de Hipertensión',
                         labelStyle: TextStyle(color: Colors.black),
                         filled: true, // Establece el fondo como relleno
                         fillColor: Colors.white,
