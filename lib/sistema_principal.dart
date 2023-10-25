@@ -15,6 +15,7 @@ class SistemaPrincipalPage extends StatelessWidget {
 }*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/prediccion_page.dart';
 import 'login_page.dart'; // Importa la página de inicio de sesión para volver atrás
 import 'ingresar_datos.dart'; // Importa la página de inicio de sesión para volver atrás
 
@@ -84,7 +85,9 @@ class SistemaPrincipalPage extends StatelessWidget {
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  print('Botón "Predicción" presionado');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PrediccionPage()));
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: verticalPadding),

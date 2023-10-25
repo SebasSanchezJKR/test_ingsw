@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class IngresarDatosPage extends StatelessWidget {
+  const IngresarDatosPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     double width60Percent = MediaQuery.of(context).size.width * 0.6;
@@ -8,13 +10,13 @@ class IngresarDatosPage extends StatelessWidget {
 
     OutlineInputBorder inputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(15.0),
-      borderSide: BorderSide(color: Colors.white),
+      borderSide: const BorderSide(color: Colors.white),
     );
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF025951),
-        title: Center(
+        backgroundColor: const Color(0xFF025951),
+        title: const Center(
           child: Text(
             'Sistema para la prevención de problemas cardíacos',
             style: TextStyle(
@@ -42,7 +44,7 @@ class IngresarDatosPage extends StatelessWidget {
                 // Columna izquierda para foto
                 Container(
                   width: columnWidth,
-                  color: Color(0xFF025951),
+                  color: const Color(0xFF025951),
                   child: Center(
                     child: Container(
                       width: 150.0,
@@ -51,7 +53,7 @@ class IngresarDatosPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.0),
                         color: Colors.white,
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text('Foto'),
                       ),
                     ),
@@ -60,11 +62,11 @@ class IngresarDatosPage extends StatelessWidget {
                 // Columna central para campos de Nombre, Edad, Sexo y Cédula
                 Container(
                   width: columnWidth,
-                  color: Color(0xFF025951),
+                  color: const Color(0xFF025951),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width60Percent,
                         height: 60,
                         child: TextFormField(

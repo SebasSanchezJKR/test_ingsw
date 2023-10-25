@@ -1,4 +1,4 @@
-import 'dart:developer';
+/*import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -98,4 +98,4 @@ class Database {
         .whenComplete(() => log('Note item deleted from the database'))
         .catchError((e) => log(e));
   }
-}
+}*/
