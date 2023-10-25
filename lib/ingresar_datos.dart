@@ -36,7 +36,7 @@ class IngresarDatosPage extends StatelessWidget {
           ),
           // Fila del medio (verde dividido en 3 columnas)
           Container(
-            color: Color(0xFF025951),
+            color:const  Color(0xFF025951),
             height: MediaQuery.of(context).size.height * 0.6,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,7 +121,7 @@ class IngresarDatosPage extends StatelessWidget {
                 // Columna derecha para campos de Correo electrónico, Número de celular, Fecha de nacimiento y Dirección
                 Container(
                   width: columnWidth,
-                  color: Color(0xFF025951),
+                  color: const Color(0xFF025951),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

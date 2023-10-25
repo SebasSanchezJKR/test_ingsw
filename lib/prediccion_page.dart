@@ -11,8 +11,13 @@ class PrediccionPage extends StatefulWidget {
 
 class _PrediccionPageState extends State<PrediccionPage> {
   String? selectedGender; // Valor inicial seleccionado
-  List<String> opcionesGender = ['Masculino', 'Femenino'];
+  List<String> opcionesGender = ['Male', 'Female'];
 
+  String? selectedMarried;
+  List<String> opcionesMarried = ['Yes', 'No'];
+
+  String? selectedWork;
+  List<String> opcionesWork = ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +93,6 @@ class _PrediccionPageState extends State<PrediccionPage> {
                         hint: const Text(
                           "Genero",
                           style: TextStyle(color: Colors.black, fontSize: 17),
-                          
                         ),
 
                         onChanged: (String? newValue) {
@@ -171,31 +175,81 @@ class _PrediccionPageState extends State<PrediccionPage> {
                   const SizedBox(
                     height: 40, //Editar espacio de columna 2 con titulo
                   ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '¿Has estado casado?',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
+                  Container(
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 500,
+                      child: DropdownButton<String?>(
+                        value: selectedMarried,
+                        hint: const Text(
+                          "¿Estás Casado?",
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              selectedMarried = newValue;
+                            });
+                          }
+                        },
+                        items: ['Yes', 'No']
+                            .map<DropdownMenuItem<String?>>((value) {
+                          return DropdownMenuItem<String?>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                            color:
+                                Colors.black), // Establece el color del texto
+                        underline: Container(
+                          height: 1, // Altura del subrayado
+                          color: Colors.grey, // Color del subrayado
+                        ),
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
-                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '¿Qué tipo de trabajo tiene?',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
+                  Container(
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 500,
+                      child: DropdownButton<String?>(
+                        value: selectedWork,
+                        hint: const Text(
+                          "¿Qué tipo de trabajo tiene?",
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              selectedGender = newValue;
+                            });
+                          }
+                        },
+                        items: ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked']
+                            .map<DropdownMenuItem<String?>>((value) {
+                          return DropdownMenuItem<String?>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                            color:
+                                Colors.black), // Establece el color del texto
+                        underline: Container(
+                          height: 1, // Altura del subrayado
+                          color: Colors.grey, // Color del subrayado
+                        ),
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
-                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   const SizedBox(
