@@ -27,168 +27,187 @@ class IngresarDatosPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          // Fila superior (blanco)
-          Container(
-            color: Colors.white,
-            height: 100,
-          ),
-          // Fila del medio (verde dividido en 3 columnas)
-          Container(
-            color:const  Color(0xFF025951),
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Columna izquierda para foto
-                Container(
-                  width: columnWidth,
-                  color: const Color(0xFF025951),
-                  child: Center(
-                    child: Container(
-                      width: 150.0,
-                      height: 150.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.white,
-                      ),
-                      child: const Center(
-                        child: Text('Foto'),
-                      ),
+      body: Column(children: [
+        // Fila superior (blanco)
+        Container(
+          color: Colors.white,
+          height: 100,
+        ),
+        // Fila del medio (verde dividido en 3 columnas)
+        Container(
+          color: const Color(0xFF025951),
+          height: MediaQuery.of(context).size.height * 0.6,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // Columna izquierda para foto
+              Container(
+                width: columnWidth,
+                color: const Color(0xFF025951),
+                child: Center(
+                  child: Container(
+                    width: 150.0,
+                    height: 150.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.white,
+                    ),
+                    child: const Center(
+                      child: Text('Foto'),
                     ),
                   ),
                 ),
-                // Columna central para campos de Nombre, Edad, Sexo y Cédula
-                Container(
-                  width: columnWidth,
-                  color: const Color(0xFF025951),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Nombre',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
+              ),
+              // Columna central para campos de Nombre, Edad, Sexo y Cédula
+              Container(
+                width: columnWidth,
+                color: const Color(0xFF025951),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Nombre',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
                       ),
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Edad',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
+                    ),
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Edad',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
                       ),
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Sexo',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
+                    ),
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Sexo',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
                       ),
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Cédula',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          keyboardType: TextInputType.number,
+                    ),
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Cédula',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
+                        keyboardType: TextInputType.number,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                // Columna derecha para campos de Correo electrónico, Número de celular, Fecha de nacimiento y Dirección
-                Container(
-                  width: columnWidth,
-                  color: const Color(0xFF025951),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Correo electrónico',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          keyboardType: TextInputType.emailAddress,
+              ),
+              // Columna derecha para campos de Correo electrónico, Número de celular, Fecha de nacimiento y Dirección
+              Container(
+                width: columnWidth,
+                color: const Color(0xFF025951),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Correo electrónico',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Número de celular',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                        keyboardType: TextInputType.phone,
+                      ),
+                    ),
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Fecha de nacimiento',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                        keyboardType: TextInputType.datetime,
+                      ),
+                    ),
+                    Container(
+                      width: width60Percent,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Dirección',
+                          border: inputBorder,
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
                       ),
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Número de celular',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          keyboardType: TextInputType.phone,
-                        ),
-                      ),
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Fecha de nacimiento',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          keyboardType: TextInputType.datetime,
-                        ),
-                      ),
-                      Container(
-                        width: width60Percent,
-                        height: 60,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Dirección',
-                            border: inputBorder,
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          ),
+        ),
+        // Fila inferior (blanco)
+        SizedBox(
+          
+        child: Container(
+          color: Colors.white,
+          height: 70,
+            child: ElevatedButton(
+            onPressed: () {
+              // Acción al presionar el botón
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFB1F5C0),
+              foregroundColor: Colors.black,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: const BorderSide(color: Colors.white, width: 1),
+              ),
+              minimumSize: const Size(100, 10),
+            ),
+            child: const Text(
+              'Registrar',
+              style: TextStyle(fontSize: 20),
             ),
           ),
-          // Fila inferior (blanco)
-          Container(
-            color: Colors.white,
-            height: 100,
-          ),
-        ],
-      ),
+        ),
+        )
+      ]),
     );
   }
 }

@@ -214,7 +214,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           max: 1.0, // Valor máximo
                           divisions: 200, // Número de divisiones
                           label:
-                              selectedHipertension.toStringAsFixed(1), 
+                              selectedEnfermedadLvl.toStringAsFixed(1), 
                           activeColor: Colors.black, // Cambia el color de la barra
                           inactiveColor: Colors.grey, // Cambia el color de la parte inactiva de la barra
                           thumbColor: Colors.black, // Cambia el color del indicador deslizante// Etiqueta
