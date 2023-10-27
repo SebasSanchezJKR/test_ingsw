@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/database.dart';
+import 'package:flutter_application_1/models/Paciente.dart';
+
+TextEditingController direc = TextEditingController();
+TextEditingController fechaNac = TextEditingController();
+TextEditingController cel = TextEditingController();
+TextEditingController cor = TextEditingController();
+TextEditingController ced = TextEditingController();
+TextEditingController sex = TextEditingController();
+TextEditingController age = TextEditingController();
+TextEditingController name = TextEditingController();
 
 class IngresarDatosPage extends StatelessWidget {
   const IngresarDatosPage({super.key});
@@ -69,6 +80,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: name,
                         decoration: InputDecoration(
                           labelText: 'Nombre',
                           border: inputBorder,
@@ -81,6 +93,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: age,
                         decoration: InputDecoration(
                           labelText: 'Edad',
                           border: inputBorder,
@@ -93,6 +106,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: sex,
                         decoration: InputDecoration(
                           labelText: 'Sexo',
                           border: inputBorder,
@@ -105,6 +119,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: ced,
                         decoration: InputDecoration(
                           labelText: 'Cédula',
                           border: inputBorder,
@@ -128,6 +143,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: cor,
                         decoration: InputDecoration(
                           labelText: 'Correo electrónico',
                           border: inputBorder,
@@ -141,6 +157,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: cel,
                         decoration: InputDecoration(
                           labelText: 'Número de celular',
                           border: inputBorder,
@@ -154,6 +171,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: fechaNac,
                         decoration: InputDecoration(
                           labelText: 'Fecha de nacimiento',
                           border: inputBorder,
@@ -167,6 +185,7 @@ class IngresarDatosPage extends StatelessWidget {
                       width: width60Percent,
                       height: 60,
                       child: TextFormField(
+                        controller: direc,
                         decoration: InputDecoration(
                           labelText: 'Dirección',
                           border: inputBorder,
@@ -190,6 +209,9 @@ class IngresarDatosPage extends StatelessWidget {
             child: ElevatedButton(
             onPressed: () {
               // Acción al presionar el botón
+              Paciente paciente = Paciente(nombre: name.text, edad: age.text, sexo: sex.text, cedula: ced.text, correo: cor.text, celular: cel.text, fechaNacimiento: fechaNac.text, direccion: direc.text);
+              Database.addPaciente(paciente.nombre, paciente.cedula, paciente.correo, paciente.celular, paciente.sexo, 
+                                   paciente.edad, paciente.fechaNacimiento, paciente.direccion);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFB1F5C0),

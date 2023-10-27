@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/database.dart';
+import 'package:flutter_application_1/models/DocUser.dart';
 
 // Valor predeterminado, puedes cambiarlo según sea necesario
 class PrediccionPage extends StatefulWidget {
@@ -17,40 +19,13 @@ class _PrediccionPageState extends State<PrediccionPage> {
   List<String> opcionesMarried = ['Yes', 'No'];
 
   String? selectedWork;
-  List<String> opcionesWork = [
-    'Private',
-    'Self-employed',
-    'children',
-    'Govt_job',
-    'Never_worked'
-  ];
+  List<String> opcionesWork = ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked'];
 
   String? selectedResidence;
-  List<String> opcionesResidence = ['Urban', 'Rural'];
+  List<String> opcionesResidence =['Urban','Rural'];
 
   String? selectedSmoking;
-  List<String> opcionesSmoking = [
-    'never smoked',
-    'smokes',
-    'formely smoked',
-    'Unknown'
-  ];
-
-  double selectedHipertension = 0.0;
-
-  void onHipertensionChanged(double newValue) {
-    setState(() {
-      selectedHipertension = newValue;
-    });
-  }
-  
-  double selectedEnfermedadLvl = 0.0;
-
-  void onEnfermedadLvlChanged(double newValue) {
-    setState(() {
-      selectedEnfermedadLvl = newValue;
-    });
-  }
+  List<String> opcionesSmoking  = ['never smoked', 'smokes', 'formely smoked', 'Unknown'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,33 +43,34 @@ class _PrediccionPageState extends State<PrediccionPage> {
         ),
       ),
       backgroundColor: const Color(0xFF025951),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          const SizedBox(height: 20),
-          Positioned(
-            top: 0, // Coloca el recuadro en la parte superior
-            left: 0, // Centra horizontalmente
-            right: 0,
-            child: Container(
-              width: 400,
-              height: 100,
-              decoration: BoxDecoration(
-                color: const Color(0xFF02735E),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.white, width: 1),
-              ),
-              child: const Center(
-                child: Text(
-                  'Ingrese información del paciente',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                  ),
+      body: Column(children: [
+        const SizedBox(height: 20),
+        Positioned(
+          top: 0, // Coloca el recuadro en la parte superior
+          left: 0, // Centra horizontalmente
+          right: 0,
+          child: Container(
+            width: 400,
+            height: 100,
+            decoration: BoxDecoration(
+              color: const Color(0xFF02735E),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.white, width: 1),
+            ),
+            child: const Center(
+              child: Text(
+                'Ingrese información del paciente',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
                 ),
               ),
             ),
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Expanded(
               child: Column(
                 children: [
@@ -126,7 +102,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           "Genero",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
-      
+
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             setState(() {
@@ -142,13 +118,14 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           );
                         }).toList(),
                         style: const TextStyle(
-                            color: Colors.black), // Establece el color del texto
+                            color:
+                                Colors.black), // Establece el color del texto
                         underline: Container(
                           height: 1, // Altura del subrayado
                           color: Colors.grey, // Color del subrayado
                         ),
-                        dropdownColor:
-                            Colors.white, // Color del fondo del menú desplegable
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
                     ),
                   ),
@@ -185,44 +162,17 @@ class _PrediccionPageState extends State<PrediccionPage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
-                        width: 500,
-                         // Establece la altura a 50 unidades
-                        
-                      child: Column (crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            'Nivel de Enfermedad Cardiaca',
-                            style: TextStyle(color: Colors.black, fontSize: 17),
-                          ),
-                        ),
-                        Slider.adaptive(
-                          
-                          value: selectedEnfermedadLvl,
-                          onChanged: (double newValue) {
-                            setState(() {
-                              selectedEnfermedadLvl = newValue;
-                              
-                            });
-                            
-                          },
-                          min: 0.0, // Valor mínimo
-                          max: 1.0, // Valor máximo
-                          divisions: 200, // Número de divisiones
-                          label:
-                              selectedEnfermedadLvl.toStringAsFixed(1), 
-                          activeColor: Colors.black, // Cambia el color de la barra
-                          inactiveColor: Colors.grey, // Cambia el color de la parte inactiva de la barra
-                          thumbColor: Colors.black, // Cambia el color del indicador deslizante// Etiqueta
-                          mouseCursor: SystemMouseCursors.click,
-                        ),
-                      ],
+                  SizedBox(
+                    width: 500,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: '¿Tiene Enfermedad del corazón?',
+                        labelStyle: TextStyle(color: Colors.black),
+                        filled: true, // Establece el fondo como relleno
+                        fillColor: Colors.white,
+                      ),
+                      style: const TextStyle(color: Colors.white),
                     ),
-                  ),
                   ),
                 ],
               ),
@@ -243,7 +193,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           "¿Está Casado?",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
-      
+
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             setState(() {
@@ -251,21 +201,22 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             });
                           }
                         },
-                        items:
-                            ['Yes', 'No'].map<DropdownMenuItem<String?>>((value) {
+                        items: ['Yes', 'No']
+                            .map<DropdownMenuItem<String?>>((value) {
                           return DropdownMenuItem<String?>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
                         style: const TextStyle(
-                            color: Colors.black), // Establece el color del texto
+                            color:
+                                Colors.black), // Establece el color del texto
                         underline: Container(
                           height: 1, // Altura del subrayado
                           color: Colors.grey, // Color del subrayado
                         ),
-                        dropdownColor:
-                            Colors.white, // Color del fondo del menú desplegable
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
                     ),
                   ),
@@ -282,7 +233,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           "Tipo de trabajo",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
-      
+
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             setState(() {
@@ -290,26 +241,22 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             });
                           }
                         },
-                        items: [
-                          'Private',
-                          'Self-employed',
-                          'children',
-                          'Govt_job',
-                          'Never_worked'
-                        ].map<DropdownMenuItem<String?>>((value) {
+                        items: ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked']
+                            .map<DropdownMenuItem<String?>>((value) {
                           return DropdownMenuItem<String?>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
                         style: const TextStyle(
-                            color: Colors.black), // Establece el color del texto
+                            color:
+                                Colors.black), // Establece el color del texto
                         underline: Container(
                           height: 1, // Altura del subrayado
                           color: Colors.grey, // Color del subrayado
                         ),
-                        dropdownColor:
-                            Colors.white, // Color del fondo del menú desplegable
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
                     ),
                   ),
@@ -326,7 +273,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           "Tipo de residencia",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
-      
+
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             setState(() {
@@ -342,13 +289,14 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           );
                         }).toList(),
                         style: const TextStyle(
-                            color: Colors.black), // Establece el color del texto
+                            color:
+                                Colors.black), // Establece el color del texto
                         underline: Container(
                           height: 1, // Altura del subrayado
                           color: Colors.grey, // Color del subrayado
                         ),
-                        dropdownColor:
-                            Colors.white, // Color del fondo del menú desplegable
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
                     ),
                   ),
@@ -365,7 +313,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                           "Categoría de fumador",
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
-      
+
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             setState(() {
@@ -373,83 +321,55 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             });
                           }
                         },
-                        items: [
-                          'never smoked',
-                          'smokes',
-                          'formely smoked',
-                          'Unknown'
-                        ].map<DropdownMenuItem<String?>>((value) {
+                        items: ['never smoked', 'smokes', 'formely smoked', 'Unknown']
+                            .map<DropdownMenuItem<String?>>((value) {
                           return DropdownMenuItem<String?>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
                         style: const TextStyle(
-                            color: Colors.black), // Establece el color del texto
+                            color:
+                                Colors.black), // Establece el color del texto
                         underline: Container(
                           height: 1, // Altura del subrayado
                           color: Colors.grey, // Color del subrayado
                         ),
-                        dropdownColor:
-                            Colors.white, // Color del fondo del menú desplegable
+                        dropdownColor: Colors
+                            .white, // Color del fondo del menú desplegable
                       ),
                     ),
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
-                        width: 500,
-                         // Establece la altura a 50 unidades
-                        
-                      child: Column (crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            'Nivel de Hipertensión',
-                            style: TextStyle(color: Colors.black, fontSize: 17),
-                          ),
-                        ),
-                        Slider.adaptive(
-                          
-                          value: selectedHipertension,
-                          onChanged: (double newValue) {
-                            setState(() {
-                              selectedHipertension = newValue;
-                              
-                            });
-                            
-                          },
-                          min: 0.0, // Valor mínimo
-                          max: 1.0, // Valor máximo
-                          divisions: 200, // Número de divisiones
-                          label:
-                              selectedHipertension.toStringAsFixed(1), 
-                          activeColor: Colors.black, // Cambia el color de la barra
-                          inactiveColor: Colors.grey, // Cambia el color de la parte inactiva de la barra
-                          thumbColor: Colors.black, // Cambia el color del indicador deslizante// Etiqueta
-                          mouseCursor: SystemMouseCursors.click,
-                        ),
-                      ],
+                  SizedBox(
+                    width: 500,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Nivel de Hipertensión',
+                        labelStyle: TextStyle(color: Colors.black),
+                        filled: true, // Establece el fondo como relleno
+                        fillColor: Colors.white,
+                      ),
+                      style: const TextStyle(color: Colors.white),
                     ),
-                  ),
                   ),
                 ],
               ),
-            )
-          ]),
-        ]),
-      ),
+            ),
+          ],
+        ),
+      ]),
       bottomNavigationBar: Container(
         color: const Color(0xFF025951),
         height: 50,
         child: Center(
           child: ElevatedButton(
             onPressed: () {
-              // Acción al presionar el botón
+              // Acción al presionar el bqotón
+              //DocUser docUser = DocUser(nombre: nombre, edad: edad, correo: correo, id: id);
+              //Database.addUser(docUser);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFB1F5C0),

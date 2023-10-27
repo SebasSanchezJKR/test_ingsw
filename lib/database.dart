@@ -1,6 +1,8 @@
-/*import 'dart:developer';
+import 'dart:developer';
+//import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_application_1/models/DocUser.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('notes');
@@ -10,14 +12,16 @@ class Database {
   static String? userUid;
 
   static Future<void> addUser(
-    String uid,
+    DocUser docUser,
   ) async {
     //Hacemos una DocumentReference pues queremos crear un documento, y le pasamos el ID (ese ID se metió antes en el user auto desde FirebaseAuth)
-    DocumentReference documentReferencer = _userCollection.doc(uid);
+    DocumentReference documentReferencer = _userCollection.doc(docUser.id);
 
     //Mapeamos los datos para que Firebase los entienda
     Map<String, dynamic> data = <String, dynamic>{
-      "isMarried": true,
+      "nombre": docUser.nombre,
+      "edad": docUser.edad,
+      "correo": docUser.correo,
     };
 
     //Mandamos la función .set que es la que envía los datos
@@ -27,35 +31,42 @@ class Database {
         .catchError((e) => log(e));
   }
 
-  static Future getUser({required String id}) async {
+  static Future getUser({required String id, required String nombre, required String correo, required int edad}) async {
     //En esta solo necesitamos el ID para ir a buscarlo a la db
     //Nuevamente hacemos un DocumentReference y le decimos q busque el doc con el id
     DocumentReference documentReference = _userCollection.doc(id);
     //Creamos una nueva instancia de CustomUser que es la que devolveremos
-    CustomUser customUser = CustomUser(uid: id);
+    DocUser user = DocUser(id: id,nombre: nombre,correo: correo,edad: edad);
     await documentReference.get().then(
       //Ya sabemos que con .then() podemos hacer algo después de que la función termine
       //En este caso nos devuelve una DocumentSnapshot
       (DocumentSnapshot doc) {
         //Mapeamos esa data del snapshot para que sea más fácil sacarle los campos específicos
         final data = doc.data() as Map<String, dynamic>;
-        customUser.age = data['age'];
-        customUser.name = data['name'];
-        customUser.userName = data['userName'];
-        customUser.email = data['email'];
+        user.nombre = data['nombre'];
+        user.edad = data['edad'];
+        user.correo = data['correo'];
+        user.id = data['id'];
       },
     );
     //Devolvemos un objeto User full instanciado
-    return customUser;
+    return user;
   }
 
-  static Future<void> addItem(String title, String note) async {
+  static Future<void> addPaciente(String nombre, String cedula, String correo, String celular, String sexo,
+  String edad, String fechaNacimiento, String direccion) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('items').doc();
+        _mainCollection.doc(userUid).collection('PACIENTES').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
-      "title": title,
-      "note": note,
+      "nombre": nombre,
+      "cedula": cedula,
+      "correo": correo,
+      "celular": celular,
+      "sexo": sexo,
+      "edad": edad,
+      "fechaNacimiento": fechaNacimiento,
+      "direccion": direccion
     };
 
     await documentReferencer
@@ -98,4 +109,4 @@ class Database {
         .whenComplete(() => log('Note item deleted from the database'))
         .catchError((e) => log(e));
   }
-}*/
+}
