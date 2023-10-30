@@ -202,32 +202,48 @@ class IngresarDatosPage extends StatelessWidget {
         ),
         // Fila inferior (blanco)
         SizedBox(
-          
-        child: Container(
-          color: Colors.white,
-          height: 70,
+          child: Container(
+            color: Colors.white,
+            height: 70,
             child: ElevatedButton(
-            onPressed: () {
-              // Acción al presionar el botón
-              Paciente paciente = Paciente(nombre: name.text, edad: age.text, sexo: sex.text, cedula: ced.text, correo: cor.text, celular: cel.text, fechaNacimiento: fechaNac.text, direccion: direc.text);
-              Database.addPaciente(paciente.nombre, paciente.cedula, paciente.correo, paciente.celular, paciente.sexo, 
-                                   paciente.edad, paciente.fechaNacimiento, paciente.direccion);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFB1F5C0),
-              foregroundColor: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: const BorderSide(color: Colors.white, width: 1),
+              onPressed: () {
+                // Acción al presionar el botón
+                Paciente paciente = Paciente(
+                  nombre: name.text,
+                  edad: age.text,
+                  sexo: sex.text,
+                  cedula: ced.text,
+                  correo: cor.text,
+                  celular: cel.text,
+                  fechaNacimiento: fechaNac.text,
+                  direccion: direc.text,
+                );
+                Database.addPaciente(
+                  paciente.nombre,
+                  paciente.cedula,
+                  paciente.correo,
+                  paciente.celular,
+                  paciente.sexo,
+                  paciente.edad,
+                  paciente.fechaNacimiento,
+                  paciente.direccion,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFB1F5C0),
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: const BorderSide(color: Colors.white, width: 1),
+                ),
+                minimumSize: const Size(100, 10),
               ),
-              minimumSize: const Size(100, 10),
-            ),
-            child: const Text(
-              'Registrar',
-              style: TextStyle(fontSize: 20),
+              child: const Text(
+                'Registrar',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ),
-        ),
         )
       ]),
     );

@@ -6,6 +6,7 @@ import 'package:flutter_application_1/models/DocUser.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('notes');
+final CollectionReference _pacienteCollection = _firestore.collection('PACIENTES');
 final CollectionReference _userCollection = _firestore.collection('user');
 
 class Database {
@@ -56,7 +57,7 @@ class Database {
   static Future<void> addPaciente(String nombre, String cedula, String correo, String celular, String sexo,
   String edad, String fechaNacimiento, String direccion) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('PACIENTES').doc();
+        _pacienteCollection.doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       "nombre": nombre,
