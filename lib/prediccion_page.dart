@@ -1,6 +1,12 @@
+//import 'dart:ffi';
+import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/database.dart';
 import 'package:flutter_application_1/models/DocUser.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'dart:ui' as j;
 
 // Valor predeterminado, puedes cambiarlo según sea necesario
 class PrediccionPage extends StatefulWidget {
@@ -19,13 +25,24 @@ class _PrediccionPageState extends State<PrediccionPage> {
   List<String> opcionesMarried = ['Yes', 'No'];
 
   String? selectedWork;
-  List<String> opcionesWork = ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked'];
+  List<String> opcionesWork = [
+    'Private',
+    'Self-employed',
+    'children',
+    'Govt_job',
+    'Never_worked'
+  ];
 
   String? selectedResidence;
-  List<String> opcionesResidence =['Urban','Rural'];
+  List<String> opcionesResidence = ['Urban', 'Rural'];
 
   String? selectedSmoking;
-  List<String> opcionesSmoking  = ['never smoked', 'smokes', 'formely smoked', 'Unknown'];
+  List<String> opcionesSmoking = [
+    'never smoked',
+    'smokes',
+    'formely smoked',
+    'Unknown'
+  ];
   double selectedHipertension = 0.0;
 
   void onHipertensionChanged(double newValue) {
@@ -41,7 +58,70 @@ class _PrediccionPageState extends State<PrediccionPage> {
       selectedEnfermedadLvl = newValue;
     });
   }
-  
+
+  final TextEditingController _glucosa = TextEditingController();
+
+  final TextEditingController _edad = TextEditingController();
+
+  final TextEditingController _bmi = TextEditingController();
+
+  String? body;
+
+  int? pred;
+
+  Future updateDataInApi() async {
+    final url = Uri.parse('https://df14-34-139-235-127.ngrok-free.app/api');
+
+    double edad;
+    double glucosa;
+    double bmi;
+
+    edad = double.parse(_edad.text);
+
+    glucosa = double.parse(_glucosa.text);
+
+    bmi = double.parse(_bmi.text);
+
+    // Construye el cuerpo del JSON con atributos de números y cadenas.
+    final jsonData = json.encode({
+      "age": edad,
+      "hypertension": selectedHipertension,
+      "heart_disease": selectedEnfermedadLvl,
+      "ever_married": selectedMarried,
+      "work_type": selectedWork,
+      "avg_glucose_level": glucosa,
+      "bmi": bmi,
+      "smoking_status": selectedSmoking
+    });
+
+    try {
+      final response = await http.put(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonData,
+      );
+      setState(() {
+        body = response.body;
+      });
+
+      /*if (body == 'positivo') {
+        setState(() {
+          pred = 1;
+        });
+      }
+
+      if (body == 'negativo') {
+        setState(() {
+          pred = 0;
+        });
+      }*/
+
+      // Procesa la respuesta aquí.
+    } catch (e) {
+      body = 'Error en la solicitud PUT a la API: $e';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,14 +177,21 @@ class _PrediccionPageState extends State<PrediccionPage> {
                     SizedBox(
                       width: 500,
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Edad',
-                          labelStyle: TextStyle(color: Colors.black),
-                          filled: true, // Establece el fondo como relleno
-                          fillColor: Colors.white, // Color de fondo blanco
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                          decoration: const InputDecoration(
+                            labelText: 'Edad',
+                            labelStyle: TextStyle(color: Colors.black),
+                            filled: true, // Establece el fondo como relleno
+                            fillColor: Colors.white, // Color de fondo blanco
+                          ),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          controller: _edad,
+                          validator: (value) {
+                            if (double.tryParse(value!) == null) {
+                              return 'Ingresa un valor numérico válido.';
+                            }
+                            return null;
+                          }),
                     ),
                     const SizedBox(
                       height: 50,
@@ -119,7 +206,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             "Genero",
                             style: TextStyle(color: Colors.black, fontSize: 17),
                           ),
-      
+
                           onChanged: (String? newValue) {
                             if (newValue != null) {
                               setState(() {
@@ -152,14 +239,23 @@ class _PrediccionPageState extends State<PrediccionPage> {
                     SizedBox(
                       width: 500,
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Nivel de Glucosa',
-                          labelStyle: TextStyle(color: Colors.black),
-                          filled: true, // Establece el fondo como relleno
-                          fillColor: Colors.white,
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                          decoration: const InputDecoration(
+                            labelText: 'Nivel de Glucosa',
+                            labelStyle: TextStyle(color: Colors.black),
+                            filled: true, // Establece el fondo como relleno
+                            fillColor: Colors.white,
+                          ),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          controller: _glucosa,
+                          validator: (value) {
+                            if (double.tryParse(value!) == null) {
+                              return 'Ingresa un valor numérico válido.';
+                            }
+                            return null;
+                          }),
                     ),
                     const SizedBox(
                       height: 50,
@@ -167,56 +263,62 @@ class _PrediccionPageState extends State<PrediccionPage> {
                     SizedBox(
                       width: 500,
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: '¿Indice de Masa Corporal?',
-                          labelStyle: TextStyle(color: Colors.black),
-                          filled: true, // Establece el fondo como relleno
-                          fillColor: Colors.white,
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                          decoration: const InputDecoration(
+                            labelText: '¿Indice de Masa Corporal?',
+                            labelStyle: TextStyle(color: Colors.black),
+                            filled: true, // Establece el fondo como relleno
+                            fillColor: Colors.white,
+                          ),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0)),
+                          controller: _bmi,
+                          validator: (value) {
+                            if (double.tryParse(value!) == null) {
+                              return 'Ingresa un valor numérico válido.';
+                            }
+                            return null;
+                          }),
                     ),
-                     const SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     Container(
                       color: Colors.white,
-                      child:  SizedBox(
+                      child: SizedBox(
                         width: 500,
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                         const Padding(
-                                            padding:EdgeInsets.all(10),
-                                            child: Text(
-                                              'Nivel de enfermedad cardiaca',
-                                              style: TextStyle(color: Colors.black, fontSize: 17),
-                                            ),
-                                            
-                                            ),
-                                            Slider.adaptive(
-                                              value: selectedEnfermedadLvl, 
-                                              onChanged: (double newValue){
-                                                setState(() {
-                                                  selectedEnfermedadLvl = newValue;
-                                                });
-                                              },
-                                              min: 0.0,
-                                              max: 1.0,
-                                              divisions: 200,
-                                              label:
-                                                selectedEnfermedadLvl.toStringAsFixed(1),
-                                                activeColor: Colors.black,
-                                                inactiveColor: Colors.grey,
-                                                thumbColor:  Colors.black,
-                                                mouseCursor: SystemMouseCursors.click,
-      
-                                              )
-
-                                      ],
-                                      ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                'Nivel de enfermedad cardiaca',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 17),
+                              ),
+                            ),
+                            Slider.adaptive(
+                              value: selectedEnfermedadLvl,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  selectedEnfermedadLvl = newValue;
+                                });
+                              },
+                              min: 0.0,
+                              max: 1.0,
+                              divisions: 200,
+                              label: selectedEnfermedadLvl.toStringAsFixed(1),
+                              activeColor: Colors.black,
+                              inactiveColor: Colors.grey,
+                              thumbColor: Colors.black,
+                              mouseCursor: SystemMouseCursors.click,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -236,7 +338,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             "¿Está Casado?",
                             style: TextStyle(color: Colors.black, fontSize: 17),
                           ),
-      
+
                           onChanged: (String? newValue) {
                             if (newValue != null) {
                               setState(() {
@@ -276,7 +378,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             "Tipo de trabajo",
                             style: TextStyle(color: Colors.black, fontSize: 17),
                           ),
-      
+
                           onChanged: (String? newValue) {
                             if (newValue != null) {
                               setState(() {
@@ -284,8 +386,13 @@ class _PrediccionPageState extends State<PrediccionPage> {
                               });
                             }
                           },
-                          items: ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked']
-                              .map<DropdownMenuItem<String?>>((value) {
+                          items: [
+                            'Private',
+                            'Self-employed',
+                            'children',
+                            'Govt_job',
+                            'Never_worked'
+                          ].map<DropdownMenuItem<String?>>((value) {
                             return DropdownMenuItem<String?>(
                               value: value,
                               child: Text(value),
@@ -316,7 +423,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             "Tipo de residencia",
                             style: TextStyle(color: Colors.black, fontSize: 17),
                           ),
-      
+
                           onChanged: (String? newValue) {
                             if (newValue != null) {
                               setState(() {
@@ -356,7 +463,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                             "Categoría de fumador",
                             style: TextStyle(color: Colors.black, fontSize: 17),
                           ),
-      
+
                           onChanged: (String? newValue) {
                             if (newValue != null) {
                               setState(() {
@@ -364,8 +471,12 @@ class _PrediccionPageState extends State<PrediccionPage> {
                               });
                             }
                           },
-                          items: ['never smoked', 'smokes', 'formely smoked', 'Unknown']
-                              .map<DropdownMenuItem<String?>>((value) {
+                          items: [
+                            'never smoked',
+                            'smokes',
+                            'formely smoked',
+                            'Unknown'
+                          ].map<DropdownMenuItem<String?>>((value) {
                             return DropdownMenuItem<String?>(
                               value: value,
                               child: Text(value),
@@ -388,39 +499,37 @@ class _PrediccionPageState extends State<PrediccionPage> {
                     ),
                     Container(
                       color: Colors.white,
-                      child:  SizedBox(
+                      child: SizedBox(
                         width: 500,
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                         const Padding(
-                                            padding:EdgeInsets.all(10),
-                                            child: Text(
-                                              'Nivel de Hipertensión',
-                                              style: TextStyle(color: Colors.black, fontSize: 17),
-                                            ),
-                                            
-                                            ),
-                                            Slider.adaptive(
-                                              value: selectedHipertension, 
-                                              onChanged: (double newValue){
-                                                setState(() {
-                                                  selectedHipertension = newValue;
-                                                });
-                                              },
-                                              min: 0.0,
-                                              max: 1.0,
-                                              divisions: 200,
-                                              label:
-                                                selectedHipertension.toStringAsFixed(1),
-                                                activeColor: Colors.black,
-                                                inactiveColor: Colors.grey,
-                                                thumbColor:  Colors.black,
-                                                mouseCursor: SystemMouseCursors.click,
-      
-                                              )
-
-                                      ],
-                                      ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                'Nivel de Hipertensión',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 17),
+                              ),
+                            ),
+                            Slider.adaptive(
+                              value: selectedHipertension,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  selectedHipertension = newValue;
+                                });
+                              },
+                              min: 0.0,
+                              max: 1.0,
+                              divisions: 200,
+                              label: selectedHipertension.toStringAsFixed(1),
+                              activeColor: Colors.black,
+                              inactiveColor: Colors.grey,
+                              thumbColor: Colors.black,
+                              mouseCursor: SystemMouseCursors.click,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -436,6 +545,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
         child: Center(
           child: ElevatedButton(
             onPressed: () {
+              updateDataInApi();
               // Acción al presionar el bqotón
               //DocUser docUser = DocUser(nombre: nombre, edad: edad, correo: correo, id: id);
               //Database.addUser(docUser);
@@ -447,7 +557,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
                 borderRadius: BorderRadius.circular(15),
                 side: const BorderSide(color: Colors.white, width: 1),
               ),
-              minimumSize: const Size(190, 100),
+              minimumSize: const j.Size(190, 100),
             ),
             child: const Text(
               'Predecir',
