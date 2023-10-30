@@ -26,6 +26,22 @@ class _PrediccionPageState extends State<PrediccionPage> {
 
   String? selectedSmoking;
   List<String> opcionesSmoking  = ['never smoked', 'smokes', 'formely smoked', 'Unknown'];
+  double selectedHipertension = 0.0;
+
+  void onHipertensionChanged(double newValue) {
+    setState(() {
+      selectedHipertension = newValue;
+    });
+  }
+
+  double selectedEnfermedadLvl = 0.0;
+
+  void onEnfermedadLvlChanged(double newValue) {
+    setState(() {
+      selectedEnfermedadLvl = newValue;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,324 +59,377 @@ class _PrediccionPageState extends State<PrediccionPage> {
         ),
       ),
       backgroundColor: const Color(0xFF025951),
-      body: Column(children: [
-        const SizedBox(height: 20),
-        Positioned(
-          top: 0, // Coloca el recuadro en la parte superior
-          left: 0, // Centra horizontalmente
-          right: 0,
-          child: Container(
-            width: 400,
-            height: 100,
-            decoration: BoxDecoration(
-              color: const Color(0xFF02735E),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white, width: 1),
-            ),
-            child: const Center(
-              child: Text(
-                'Ingrese información del paciente',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
+      body: SingleChildScrollView(
+        child: Column(children: [
+          const SizedBox(height: 20),
+          Positioned(
+            top: 0, // Coloca el recuadro en la parte superior
+            left: 0, // Centra horizontalmente
+            right: 0,
+            child: Container(
+              width: 400,
+              height: 100,
+              decoration: BoxDecoration(
+                color: const Color(0xFF02735E),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.white, width: 1),
+              ),
+              child: const Center(
+                child: Text(
+                  'Ingrese información del paciente',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40, //Editar espacio columna 1 con el titulo
-                  ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Edad',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white, // Color de fondo blanco
-                      ),
-                      style: const TextStyle(color: Colors.white),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40, //Editar espacio columna 1 con el titulo
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
+                    SizedBox(
                       width: 500,
-                      child: DropdownButton<String?>(
-                        value: selectedGender,
-                        hint: const Text(
-                          "Genero",
-                          style: TextStyle(color: Colors.black, fontSize: 17),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Edad',
+                          labelStyle: TextStyle(color: Colors.black),
+                          filled: true, // Establece el fondo como relleno
+                          fillColor: Colors.white, // Color de fondo blanco
                         ),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 500,
+                        child: DropdownButton<String?>(
+                          value: selectedGender,
+                          hint: const Text(
+                            "Genero",
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+      
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              setState(() {
+                                selectedGender = newValue;
+                              });
+                            }
+                          },
+                          items: ['Masculino', 'Femenino']
+                              .map<DropdownMenuItem<String?>>((value) {
+                            return DropdownMenuItem<String?>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          style: const TextStyle(
+                              color:
+                                  Colors.black), // Establece el color del texto
+                          underline: Container(
+                            height: 1, // Altura del subrayado
+                            color: Colors.grey, // Color del subrayado
+                          ),
+                          dropdownColor: Colors
+                              .white, // Color del fondo del menú desplegable
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    SizedBox(
+                      width: 500,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Nivel de Glucosa',
+                          labelStyle: TextStyle(color: Colors.black),
+                          filled: true, // Establece el fondo como relleno
+                          fillColor: Colors.white,
+                        ),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    SizedBox(
+                      width: 500,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: '¿Indice de Masa Corporal?',
+                          labelStyle: TextStyle(color: Colors.black),
+                          filled: true, // Establece el fondo como relleno
+                          fillColor: Colors.white,
+                        ),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                     const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child:  SizedBox(
+                        width: 500,
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                         const Padding(
+                                            padding:EdgeInsets.all(10),
+                                            child: Text(
+                                              'Nivel de enfermedad cardiaca',
+                                              style: TextStyle(color: Colors.black, fontSize: 17),
+                                            ),
+                                            
+                                            ),
+                                            Slider.adaptive(
+                                              value: selectedEnfermedadLvl, 
+                                              onChanged: (double newValue){
+                                                setState(() {
+                                                  selectedEnfermedadLvl = newValue;
+                                                });
+                                              },
+                                              min: 0.0,
+                                              max: 1.0,
+                                              divisions: 200,
+                                              label:
+                                                selectedEnfermedadLvl.toStringAsFixed(1),
+                                                activeColor: Colors.black,
+                                                inactiveColor: Colors.grey,
+                                                thumbColor:  Colors.black,
+                                                mouseCursor: SystemMouseCursors.click,
+      
+                                              )
 
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              selectedGender = newValue;
-                            });
-                          }
-                        },
-                        items: ['Masculino', 'Femenino']
-                            .map<DropdownMenuItem<String?>>((value) {
-                          return DropdownMenuItem<String?>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                            color:
-                                Colors.black), // Establece el color del texto
-                        underline: Container(
-                          height: 1, // Altura del subrayado
-                          color: Colors.grey, // Color del subrayado
-                        ),
-                        dropdownColor: Colors
-                            .white, // Color del fondo del menú desplegable
+                                      ],
+                                      ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Nivel de Glucosa',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
-                      ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Índice de Masa Corporal',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
-                      ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: '¿Tiene Enfermedad del corazón?',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
-                      ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
+                    
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40, //Editar espacio de columna 2 con titulo
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 500,
-                      child: DropdownButton<String?>(
-                        value: selectedMarried,
-                        hint: const Text(
-                          "¿Está Casado?",
-                          style: TextStyle(color: Colors.black, fontSize: 17),
+              Expanded(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40, //Editar espacio de columna 2 con titulo
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 500,
+                        child: DropdownButton<String?>(
+                          value: selectedMarried,
+                          hint: const Text(
+                            "¿Está Casado?",
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+      
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              setState(() {
+                                selectedMarried = newValue;
+                              });
+                            }
+                          },
+                          items: ['Yes', 'No']
+                              .map<DropdownMenuItem<String?>>((value) {
+                            return DropdownMenuItem<String?>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          style: const TextStyle(
+                              color:
+                                  Colors.black), // Establece el color del texto
+                          underline: Container(
+                            height: 1, // Altura del subrayado
+                            color: Colors.grey, // Color del subrayado
+                          ),
+                          dropdownColor: Colors
+                              .white, // Color del fondo del menú desplegable
                         ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 500,
+                        child: DropdownButton<String?>(
+                          value: selectedWork,
+                          hint: const Text(
+                            "Tipo de trabajo",
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+      
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              setState(() {
+                                selectedWork = newValue;
+                              });
+                            }
+                          },
+                          items: ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked']
+                              .map<DropdownMenuItem<String?>>((value) {
+                            return DropdownMenuItem<String?>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          style: const TextStyle(
+                              color:
+                                  Colors.black), // Establece el color del texto
+                          underline: Container(
+                            height: 1, // Altura del subrayado
+                            color: Colors.grey, // Color del subrayado
+                          ),
+                          dropdownColor: Colors
+                              .white, // Color del fondo del menú desplegable
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 500,
+                        child: DropdownButton<String?>(
+                          value: selectedResidence,
+                          hint: const Text(
+                            "Tipo de residencia",
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+      
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              setState(() {
+                                selectedResidence = newValue;
+                              });
+                            }
+                          },
+                          items: ['Urban', 'Rural']
+                              .map<DropdownMenuItem<String?>>((value) {
+                            return DropdownMenuItem<String?>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          style: const TextStyle(
+                              color:
+                                  Colors.black), // Establece el color del texto
+                          underline: Container(
+                            height: 1, // Altura del subrayado
+                            color: Colors.grey, // Color del subrayado
+                          ),
+                          dropdownColor: Colors
+                              .white, // Color del fondo del menú desplegable
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 500,
+                        child: DropdownButton<String?>(
+                          value: selectedSmoking,
+                          hint: const Text(
+                            "Categoría de fumador",
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+      
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              setState(() {
+                                selectedSmoking = newValue;
+                              });
+                            }
+                          },
+                          items: ['never smoked', 'smokes', 'formely smoked', 'Unknown']
+                              .map<DropdownMenuItem<String?>>((value) {
+                            return DropdownMenuItem<String?>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          style: const TextStyle(
+                              color:
+                                  Colors.black), // Establece el color del texto
+                          underline: Container(
+                            height: 1, // Altura del subrayado
+                            color: Colors.grey, // Color del subrayado
+                          ),
+                          dropdownColor: Colors
+                              .white, // Color del fondo del menú desplegable
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child:  SizedBox(
+                        width: 500,
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                         const Padding(
+                                            padding:EdgeInsets.all(10),
+                                            child: Text(
+                                              'Nivel de Hipertensión',
+                                              style: TextStyle(color: Colors.black, fontSize: 17),
+                                            ),
+                                            
+                                            ),
+                                            Slider.adaptive(
+                                              value: selectedHipertension, 
+                                              onChanged: (double newValue){
+                                                setState(() {
+                                                  selectedHipertension = newValue;
+                                                });
+                                              },
+                                              min: 0.0,
+                                              max: 1.0,
+                                              divisions: 200,
+                                              label:
+                                                selectedHipertension.toStringAsFixed(1),
+                                                activeColor: Colors.black,
+                                                inactiveColor: Colors.grey,
+                                                thumbColor:  Colors.black,
+                                                mouseCursor: SystemMouseCursors.click,
+      
+                                              )
 
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              selectedMarried = newValue;
-                            });
-                          }
-                        },
-                        items: ['Yes', 'No']
-                            .map<DropdownMenuItem<String?>>((value) {
-                          return DropdownMenuItem<String?>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                            color:
-                                Colors.black), // Establece el color del texto
-                        underline: Container(
-                          height: 1, // Altura del subrayado
-                          color: Colors.grey, // Color del subrayado
-                        ),
-                        dropdownColor: Colors
-                            .white, // Color del fondo del menú desplegable
+                                      ],
+                                      ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 500,
-                      child: DropdownButton<String?>(
-                        value: selectedWork,
-                        hint: const Text(
-                          "Tipo de trabajo",
-                          style: TextStyle(color: Colors.black, fontSize: 17),
-                        ),
-
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              selectedWork = newValue;
-                            });
-                          }
-                        },
-                        items: ['Private', 'Self-employed', 'children', 'Govt_job', 'Never_worked']
-                            .map<DropdownMenuItem<String?>>((value) {
-                          return DropdownMenuItem<String?>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                            color:
-                                Colors.black), // Establece el color del texto
-                        underline: Container(
-                          height: 1, // Altura del subrayado
-                          color: Colors.grey, // Color del subrayado
-                        ),
-                        dropdownColor: Colors
-                            .white, // Color del fondo del menú desplegable
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 500,
-                      child: DropdownButton<String?>(
-                        value: selectedResidence,
-                        hint: const Text(
-                          "Tipo de residencia",
-                          style: TextStyle(color: Colors.black, fontSize: 17),
-                        ),
-
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              selectedResidence = newValue;
-                            });
-                          }
-                        },
-                        items: ['Urban', 'Rural']
-                            .map<DropdownMenuItem<String?>>((value) {
-                          return DropdownMenuItem<String?>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                            color:
-                                Colors.black), // Establece el color del texto
-                        underline: Container(
-                          height: 1, // Altura del subrayado
-                          color: Colors.grey, // Color del subrayado
-                        ),
-                        dropdownColor: Colors
-                            .white, // Color del fondo del menú desplegable
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 500,
-                      child: DropdownButton<String?>(
-                        value: selectedSmoking,
-                        hint: const Text(
-                          "Categoría de fumador",
-                          style: TextStyle(color: Colors.black, fontSize: 17),
-                        ),
-
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              selectedSmoking = newValue;
-                            });
-                          }
-                        },
-                        items: ['never smoked', 'smokes', 'formely smoked', 'Unknown']
-                            .map<DropdownMenuItem<String?>>((value) {
-                          return DropdownMenuItem<String?>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                            color:
-                                Colors.black), // Establece el color del texto
-                        underline: Container(
-                          height: 1, // Altura del subrayado
-                          color: Colors.grey, // Color del subrayado
-                        ),
-                        dropdownColor: Colors
-                            .white, // Color del fondo del menú desplegable
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: 500,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Nivel de Hipertensión',
-                        labelStyle: TextStyle(color: Colors.black),
-                        filled: true, // Establece el fondo como relleno
-                        fillColor: Colors.white,
-                      ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ]),
+            ],
+          ),
+        ]),
+      ),
       bottomNavigationBar: Container(
         color: const Color(0xFF025951),
         height: 50,

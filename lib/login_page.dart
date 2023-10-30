@@ -35,11 +35,43 @@ class LoginPage extends StatelessWidget{
 import 'package:flutter/material.dart';
 import 'sistema_principal.dart'; // Importa la página nueva
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController passwordController = TextEditingController();
+  String obscuredPassword = '';
+
+  @override
+  void initState() {
+    super.initState();
+    passwordController.addListener(_updateObscuredPassword);
+  }
+
+  void _updateObscuredPassword() {
+    setState(() {
+      obscuredPassword = '*' * passwordController.text.length;
+    });
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    passwordController.addListener(() {
+      setState(() {
+        obscuredPassword = '*' * passwordController.text.length;
+      });
+    });
     return Scaffold(
       backgroundColor: const Color(0xFF025951),
       body: Row(
@@ -48,12 +80,12 @@ class LoginPage extends StatelessWidget {
           // Columna izquierda
           Container(
             width: MediaQuery.of(context).size.width * 0.5,
-            color: Color(0xFF025951),
+            color: const Color(0xFF025951),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 80),
-                Text(
+                const SizedBox(height: 80),
+                const Text(
                   "Sistema para la prevención de problemas cardíacos",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -61,31 +93,34 @@ class LoginPage extends StatelessWidget {
                     fontSize: 24,
                   ),
                 ),
-                SizedBox(height: 100),
+                const SizedBox(height: 100),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Usuario',
                       fillColor: Colors.white,
                       filled: true,
                     ),
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    controller: passwordController,
+                    decoration: const InputDecoration(
                       hintText: 'Contraseña',
                       fillColor: Colors.white,
                       filled: true,
                     ),
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
+                    obscureText:
+                        true, // Esta propiedad ya oculta el texto ingresado con asteriscos
                   ),
                 ),
-                SizedBox(height: 120),
+                const SizedBox(height: 120),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
@@ -93,11 +128,12 @@ class LoginPage extends StatelessWidget {
                       // Navegar a la nueva página al hacer clic en el botón
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SistemaPrincipalPage()),
+                        MaterialPageRoute(
+                            builder: (context) => SistemaPrincipalPage()),
                       );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
                         'Ingresar',
                         style: TextStyle(
@@ -107,7 +143,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green[200],
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: Colors.black,
                       ),
                     ),
@@ -120,7 +156,7 @@ class LoginPage extends StatelessWidget {
           // Columna derecha
           Expanded(
             child: Container(
-              color: Color(0xFFB1F5C0),
+              color: const Color(0xFFB1F5C0),
               child: Center(
                 child: Container(
                   width: 450,
