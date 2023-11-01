@@ -2,7 +2,10 @@
 import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/database.dart';
+import 'package:flutter_application_1/ingresar_datos.dart';
 import 'package:flutter_application_1/models/DocUser.dart';
+import 'package:flutter_application_1/resultadonegativo_page.dart';
+import 'package:flutter_application_1/resultadopositivo_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -70,7 +73,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
   int? pred;
 
   Future updateDataInApi() async {
-    final url = Uri.parse('https://df14-34-139-235-127.ngrok-free.app/api');
+    final url = Uri.parse('https://30f7-34-16-169-136.ngrok-free.app/api');
 
     double edad;
     double glucosa;
@@ -104,17 +107,29 @@ class _PrediccionPageState extends State<PrediccionPage> {
         body = response.body;
       });
 
-      /*if (body == 'positivo') {
+      if (body == 'Positivo') {
         setState(() {
           pred = 1;
         });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const ResultadoPositivoPage()),
+        );
       }
 
-      if (body == 'negativo') {
+      if (body == 'Negativo') {
         setState(() {
           pred = 0;
         });
-      }*/
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const ResultadoNegativoPage()),
+        );
+      }
 
       // Procesa la respuesta aquí.
     } catch (e) {
