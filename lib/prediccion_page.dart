@@ -73,7 +73,7 @@ class _PrediccionPageState extends State<PrediccionPage> {
   int? pred;
 
   Future updateDataInApi() async {
-    final url = Uri.parse('https://30f7-34-16-169-136.ngrok-free.app/api');
+    final url = Uri.parse('https://0df3-34-74-230-39.ngrok-free.app/api');
 
     double edad;
     double glucosa;

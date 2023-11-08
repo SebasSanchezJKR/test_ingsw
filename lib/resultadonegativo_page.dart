@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ResultadoNegativoPage extends StatelessWidget{
+class ResultadoNegativoPage extends StatelessWidget {
   const ResultadoNegativoPage({super.key});
 
-
-
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF025951),
@@ -22,32 +20,56 @@ class ResultadoNegativoPage extends StatelessWidget{
         ),
       ),
       backgroundColor: const Color(0xFF025951),
-      body: Column(children: [
-          const SizedBox(height: 20),
-          Positioned(
-            top: 0, // Coloca el recuadro en la parte superior
-            left: 0, // Centra horizontalmente
-            right: 0,
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          const SizedBox(
+              height: 20), // Agrega un espacio en blanco en la parte superior
+          Center(
             child: Container(
-              width: 400,
-              height: 100,
+              width: 800,
+              height: 200,
               decoration: BoxDecoration(
-                color: const Color(0XFFB1F5C0),
+                color: const Color(0xFFB1F5C0),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.black, width: 1),
               ),
               child: const Center(
-                child: Text(
-                  'Predicción: Negativo para problemas',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
+                child: Center(
+                  child: Text(
+                    'Predicción: Negativo para problemas cardiacos',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 60,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
             ),
           ),
-        ])
+          const SizedBox(height: 50), // Espacio de 50 de altura
+          Padding(
+            padding:
+                const EdgeInsets.all(16.0), // Espaciado para el campo de texto
+            child: Container(
+              height: 300, // Ajusta la altura deseada
+              decoration: BoxDecoration(
+                color: Colors.white, // Color de fondo blanco
+                border: Border.all(color: Colors.black, width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Escribe la historia del paciente...',
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(8.0),
+                ),
+              ),
+            ),
+          ),
+        ],
+      )),
     );
   }
 }
