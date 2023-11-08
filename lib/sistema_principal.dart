@@ -15,6 +15,7 @@ class SistemaPrincipalPage extends StatelessWidget {
 }*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/prediccion_page.dart';
 import 'login_page.dart'; // Importa la página de inicio de sesión para volver atrás
 import 'ingresar_datos.dart'; // Importa la página de inicio de sesión para volver atrás
 
@@ -26,8 +27,8 @@ class SistemaPrincipalPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF025951),
-        title: Center(
+        backgroundColor: const Color(0xFF025951),
+        title: const Center(
           child: Text(
             'Sistema para la prevención de problemas cardíacos',
             style: TextStyle(
@@ -42,8 +43,8 @@ class SistemaPrincipalPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
               child: Text(
                 'Menú Principal',
                 style: TextStyle(
@@ -59,12 +60,12 @@ class SistemaPrincipalPage extends StatelessWidget {
                   // Navegar a la página "IngresarDatosPage" cuando se presiona el botón "Registrar Paciente"
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => IngresarDatosPage()),
+                    MaterialPageRoute(builder: (context) => const IngresarDatosPage()),
                   );
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: verticalPadding),
-                  child: Text(
+                  child: const Text(
                     'Registrar Paciente',
                     style: TextStyle(
                       fontSize: 18,
@@ -72,23 +73,25 @@ class SistemaPrincipalPage extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF025951),
-                  textStyle: TextStyle(
+                  primary: const Color(0xFF025951),
+                  textStyle: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  print('Botón "Predicción" presionado');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PrediccionPage()));
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: verticalPadding),
-                  child: Text(
+                  child: const Text(
                     'Predicción',
                     style: TextStyle(
                       fontSize: 18,
@@ -96,38 +99,14 @@ class SistemaPrincipalPage extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF025951),
-                  textStyle: TextStyle(
+                  primary: const Color(0xFF025951),
+                  textStyle: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 25),
-            SizedBox(
-              width: buttonWidth,
-              child: ElevatedButton(
-                onPressed: () {
-                  print('Botón "Resultado" presionado');
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: verticalPadding),
-                  child: Text(
-                    'Resultado',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF025951),
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             SizedBox(
               width: buttonWidth,
               child: ElevatedButton(
@@ -136,7 +115,7 @@ class SistemaPrincipalPage extends StatelessWidget {
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: verticalPadding),
-                  child: Text(
+                  child: const Text(
                     'Historia Paciente',
                     style: TextStyle(
                       fontSize: 18,
@@ -144,14 +123,14 @@ class SistemaPrincipalPage extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF025951),
-                  textStyle: TextStyle(
+                  primary: const Color(0xFF025951),
+                  textStyle: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               width: 300,
               height: 300,
